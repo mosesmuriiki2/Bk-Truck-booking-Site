@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+# Allow CSRF from Vercel preview and production domains
+CSRF_TRUSTED_ORIGINS = ['https://*.vercel.app', 'https://bktruckbookingsite.vercel.app']
+
 
 # Application definition
 
@@ -118,6 +121,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
+# Use cookie-based sessions to avoid DB writes in serverless
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'

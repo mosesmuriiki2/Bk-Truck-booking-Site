@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Trucks | BK Roadshow Trucks{% endblock %}
+{% block content %}
+<h1 class="h3 fw-semibold mb-4">Available Trucks</h1>
+<form method="get" class="card card-body mb-4">
+  <div class="row g-3">
+    <div class="col-md-4">
+      <label class="form-label">Start date</label>
+      <input type="date" name="start_date" value="{{ start_date }}" class="form-control" />
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">End date</label>
+      <input type="date" name="end_date" value="{{ end_date }}" class="form-control" />
+    </div>
+    <div class="col-md-4 d-flex align-items-end">
+      <button class="btn btn-dark w-100">Filter availability</button>
+    </div>
+  </div>
+</form>
+{% if start_date and end_date %}
+  <p class="text-muted mb-4">Showing trucks available from <span class="fw-semibold">{{ start_date }}</span> to <span class="fw-semibold">{{ end_date }}</span>.</p>
+{% endif %}
+<div class="row g-4">
+  {% for truck in trucks %}
+    <div class="col-md-6 col-lg-4">
+      <a class="card h-100 text-decoration-none" href="{{ truck.get_absolute_url }}">
+        {% if truck.image %}
+          <img src="{{ truck.image.url }}" class="card-img-top" alt="{{ truck.name }}" />
+        {% elif truck.image_url %}
+          <img src="{{ truck.image_url }}" class="card-img-top" alt="{{ truck.name }}" />
+        {% endif %}
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center">
+            <h2 class="h6 fw-bold mb-0">{{ truck.name }}</h2>
+            <span class="text-muted small">${{ truck.daily_price }} / day</span>
+          </div>
+          <p class="mt-2 text-muted">{{ truck.description|default:'No description'|truncatechars:120 }}</p>
+          <div class="small text-muted">Features: {{ truck.features }}</div>
+        </div>
+      </a>
+    </div>
+  {% empty %}
+    <p>No trucks available for the selected dates.</p>
+  {% endfor %}
+</div>
+{% endblock %}

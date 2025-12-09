@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}My Bookings | BK Roadshow Trucks{% endblock %}
+{% block content %}
+<h1 class="text-2xl font-semibold mb-6">My Bookings</h1>
+<div class="space-y-4">
+  {% for b in bookings %}
+    <div class="bg-white rounded shadow p-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <div class="font-semibold">{{ b.truck.name }}</div>
+          <div class="text-sm text-gray-600">{{ b.start_date }} → {{ b.end_date }} ({{ b.days }} day{{ b.days|pluralize }})</div>
+        </div>
+        <div class="text-right">
+          <div class="text-sm">Status: <span class="font-semibold">{{ b.get_status_display }}</span></div>
+          <div class="text-sm">Total: ${{ b.total_price }}</div>
+        </div>
+      </div>
+      {% if b.extras.count %}
+      <div class="mt-2 text-sm text-gray-600">Extras: {% for e in b.extras.all %}{{ e.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</div>
+      {% endif %}
+    </div>
+  {% empty %}
+    <p>You don’t have any bookings yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}

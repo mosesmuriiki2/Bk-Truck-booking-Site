@@ -1,22 +1,21 @@
 import os
 import sys
-from pathlib import Path
 
-# Add the parent directory to Python path
-sys.path.insert(0, str(Path(__file__).parent.parent))
+# Add project to path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-# Set Django settings module
+# Set Django settings
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bkbookingtrucks.settings')
 
-# Import Django and get ASGI application
-import django
-django.setup()
+# Use WSGI instead of ASGI
+from django.core.wsgi import get_wsgi_application
 
-from django.core.asgi import get_asgi_application
-from django.core.handlers.asgi import ASGIHandler
+# Create WSGI application
+wsgi_app = get_wsgi_application()
 
-# Create the ASGI application
-asgi_app = get_asgi_application()
+# Convert WSGI to ASGI for Vercel (if needed)
+from asgiref.wsgi import WsgiToAsgi
 
-# Vercel expects a handler variable
-handler = asgi_app
+# Export the handler
+handler = WsgiToAsgi(wsgi_app)
+app = handler

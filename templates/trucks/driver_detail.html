@@ -14,7 +14,7 @@
           <div class="mt-2"><span class="small text-muted">Email:</span> {{ driver.email }}</div>
         {% endif %}
         {% if driver.salary %}
-          <div class="mt-1"><span class="small text-muted">Salary:</span> ${{ driver.salary }}</div>
+          <div class="mt-1"><span class="small text-muted">Salary:</span> KSH{{ driver.salary }}</div>
         {% endif %}
       </div>
     </div>
@@ -30,7 +30,7 @@
             <li class="list-group-item d-flex justify-content-between align-items-center">
               <div>
                 <span class="fw-semibold">{{ t.name }}</span>
-                <span class="small text-muted">— ${{ t.daily_price }}/day</span>
+                <span class="small text-muted">— KSH{{ t.daily_price }}/day</span>
               </div>
               <a href="{% url 'trucks:detail' t.pk %}" class="btn btn-outline-primary btn-sm">View</a>
             </li>

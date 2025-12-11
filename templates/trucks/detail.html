@@ -13,7 +13,7 @@
           <img src="{{ truck.image_url }}" alt="{{ truck.name }}" class="img-fluid rounded mt-3" />
         {% endif %}
         <div class="mt-3 small text-muted">Features: {{ truck.features }}</div>
-        <div class="mt-1">Daily price: <span class="fw-semibold">${{ truck.daily_price }}</span></div>
+        <div class="mt-1">Daily price: <span class="fw-semibold">KSH{{ truck.daily_price }}</span></div>
       </div>
     </div>
   </div>
@@ -65,7 +65,7 @@
               {% for e in extras %}
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" name="extras" value="{{ e.id }}" id="extra{{ e.id }}">
-                <label class="form-check-label" for="extra{{ e.id }}">{{ e.name }} — ${{ e.price_per_day }}/day</label>
+                <label class="form-check-label" for="extra{{ e.id }}">{{ e.name }} — KSH{{ e.price_per_day }}/day</label>
               </div>
               {% empty %}
               <p class="text-muted small mb-0">No extras available right now.</p>
